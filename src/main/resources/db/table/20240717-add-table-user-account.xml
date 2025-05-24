@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="20240717-check-exists-table-user-account" author="HieuHT">
+        <preConditions onFail="MARK_RAN" onFailMessage="Table user_account has already existed">
+            <not>
+                <tableExists tableName="user_account"/>
+            </not>
+        </preConditions>
+    </changeSet>
+
+    <changeSet id="20240717-add-table-user-account" author="HieuHT">
+        <createTable tableName="user_account" remarks="User account table">
+            <column name="id" type="INT" autoIncrement="true" remarks="ID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(60)" remarks="Username">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(200)" remarks="Password">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_group_id" type="INT" remarks="The ID of the authorization role"/>
+            <column name="email" type="varchar(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(10)" remarks="Phone number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="date" remarks="Start date"/>
+            <column name="resign_date" type="date" remarks="Resign date"/>
+            <column name="created_at" type="TIMESTAMP" remarks="The time the record is created">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="INT" remarks="The ID of the record's creator">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" remarks="The latest time the record is updated">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="INT" remarks="The ID of the latest user updated the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delete_flag" type="Boolean" remarks="Flag mark the deleted record">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
